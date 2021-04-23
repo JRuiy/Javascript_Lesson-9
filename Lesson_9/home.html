@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Homework 9</title>
+<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+</head>
+<body>
+	<h2>Get method</h2>
+	<form>
+		<label>Surname</label><br>
+		<input id="surNameGet" type="text"><br> <label>Name</label><br>
+		<input id="nameGet" type="text"><br> <label>Age</label><br>
+		<input id="ageGet" type="text"><br> <label>Address</label><br>
+		<input id="addressGet" type="text"><br> <input
+			type="button" value="Send" onclick="sendByGet()">
+	</form>
+	<hr>
+	<h2>Post method</h2>
+	<form>
+		<label>Surname</label><br>
+		<input id="surNamePost" type="text"><br> <label>Name</label><br>
+		<input id="namePost" type="text"><br> <label>Age</label><br>
+		<input id="agePost" type="text"><br> <label>Address</label><br>
+		<input id="addressPost" type="text"><br> <input
+			type="button" value="Send" onclick="sendByPost()">
+
+	</form>
+	<script>
+		function sendByGet() {
+			var userData = {
+				surName : document.getElementById('surNameGet').value,
+				name : document.getElementById('nameGet').value,
+				age : document.getElementById('ageGet').value,
+				address : document.getElementById('addressGet').value
+			};
+			if (userData.age<100 && userData.age>0) {
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", '/formGet?userSurName=' + userData.surName
+						+ '&userName=' + userData.name + '&userAge='
+						+ userData.age + '&userAddress=' + userData.address);
+				xhr.setRequestHeader('Content-type', 'application/json');
+				xhr.send();
+			} else {
+				throw new Error('Age incorrect');
+			}
+		}
+
+		function sendByPost() {
+			var userData = {
+				surName : document.getElementById('surNamePost').value,
+				name : document.getElementById('namePost').value,
+				age : document.getElementById('agePost').value,
+				address : document.getElementById('addressPost').value
+			};
+			if (userData.age<100 && userData.age>0) {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "/formPost");
+				xhr.setRequestHeader("Content-type", "application/json");
+				xhr.send(JSON.stringify(userData));
+			} else {
+				throw new Error('Age incorrect');
+			}
+
+		}
+	</script>
+</body>
+</html>
